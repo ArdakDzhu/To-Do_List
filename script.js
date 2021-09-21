@@ -1,7 +1,7 @@
 window.addEventListener('load', loadWindow);
 
 const myArr = [];
-let iterator = 0
+let iterator = 0;
 
 function loadWindow() {
     const card = document.querySelector('.task-container');
@@ -42,7 +42,7 @@ function loadWindow() {
 
     const btnDel = document.querySelector('.btnDel');
   
-    deleteTaskArr(btnDel)
+    deleteTaskArr(btnDel);
     console.log(btnDel);
     
 };
@@ -50,7 +50,7 @@ function loadWindow() {
 function taskAdd() {
     const crtInput = document.createElement('input');
     const crtDiv = document.createElement('div');
-    crtDiv.classList.add('wrapper')
+    crtDiv.classList.add('wrapper');
     crtDiv.append(crtInput);
     const btnDel = document.createElement('button');
     btnDel.classList.add('btnDel');
@@ -67,6 +67,6 @@ function taskAdd() {
 function deleteTaskArr(btnDel, crtDiv){   
     btnDel.addEventListener('click', (event) => {
         myArr.splice(myArr.indexOf(event.target.parentElement),1)
-        crtDiv.remove()
+        crtDiv.remove();
     });
 }
