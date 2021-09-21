@@ -53,12 +53,12 @@ function taskAdd() {
     crtDiv.classList.add('wrapper')
     crtDiv.append(crtInput);
     const btnDel = document.createElement('button');
-    btnDel.classList.add('btnDel')
-    crtDiv.id = iterator
-    iterator++
+    btnDel.classList.add('btnDel');
+    crtDiv.id = iterator;
+    iterator++;
     crtDiv.append(btnDel);
 
-    deleteTaskArr(btnDel, crtDiv)
+    deleteTaskArr(btnDel, crtDiv);
 
     return crtDiv;
 };
@@ -66,11 +66,7 @@ function taskAdd() {
 
 function deleteTaskArr(btnDel, crtDiv){   
     btnDel.addEventListener('click', (event) => {
-        myArr.forEach((item, index) => {
-            if(event.target.parentElement.id == item.id){
-                myArr.splice(index, 1)
-                crtDiv.remove()
-            }
-        })
+        myArr.splice(myArr.indexOf(event.target.parentElement),1)
+        crtDiv.remove()
     });
 }
