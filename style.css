@@ -42,6 +42,11 @@ h1 {
 input {
     align-items: center;
     border: 0;
+    background-color: transparent;
+}
+
+.select {
+    background-color: #CE93D8;
 }
 
 .btn {

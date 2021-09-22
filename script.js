@@ -1,10 +1,11 @@
 window.addEventListener('load', loadWindow);
-
 const myArr = [];
 let iterator = 0;
+let container;
 
 function loadWindow() {
     const card = document.querySelector('.task-container');
+    container = card;
     const div = taskAdd();
     card.append(div);
     myArr.push(div);
@@ -38,18 +39,16 @@ function loadWindow() {
         myArr.forEach(function(div) {
             div.parentElement.append(div);
         })
-    });
-
-    const btnDel = document.querySelector('.btnDel');
-  
-    deleteTaskArr(btnDel);
-    console.log(btnDel);
-    
-};
+    })
+}
 
 function taskAdd() {
-    const crtInput = document.createElement('input');
     const crtDiv = document.createElement('div');
+    const crtInput = document.createElement('input');
+    crtDiv.draggable = true;
+    crtDiv.addEventListener('dragstart', eventHandler);
+    crtDiv.addEventListener('dragend', eventHandler);
+    crtDiv.addEventListener('dragenter', eventHandler);
     crtDiv.classList.add('wrapper');
     crtDiv.append(crtInput);
     const btnDel = document.createElement('button');
@@ -61,12 +60,48 @@ function taskAdd() {
     deleteTaskArr(btnDel, crtDiv);
 
     return crtDiv;
-};
+}
 
+let activDrag = null;
 
-function deleteTaskArr(btnDel, crtDiv){   
+function eventHandler(event) {
+    switch(event.type) {
+        case 'dragstart':
+            activDrag = event.currentTarget;
+
+            activDrag.classList.add('select');
+            break;
+        
+        case 'dragend': 
+            activDrag.classList.remove('select');
+            activDrag = null;
+            break;
+
+        case 'dragenter':
+            if (!event.currentTarget.classList.contains('select')) {
+                changeCards(activDrag, event.currentTarget);
+            } 
+        break;
+    }
+}
+
+function changeCards(card1, card2) {
+
+    const list = container.querySelectorAll('.wrapper');
+    const listArr = [...list];
+    const cardIndex1 = listArr.indexOf(card1);
+    const cardIndex2 = listArr.indexOf(card2);
+    if (cardIndex1 > cardIndex2) {
+        container.insertBefore(card1, card2);
+    } else {
+        container.insertBefore(card2, card1);
+    }
+}
+
+function deleteTaskArr(btnDel, crtDiv) {   
+
     btnDel.addEventListener('click', (event) => {
         myArr.splice(myArr.indexOf(event.target.parentElement),1)
         crtDiv.remove();
-    });
+    })
 }
